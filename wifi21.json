@@ -1,0 +1,15 @@
+{
+    "aironet": [
+        {
+         "host_ip": "10.21.10.3",
+         "hostname": "PYwifi21",
+         "username": "admin",
+         "password": "pass",
+         "ssid": "21-Hotel",
+         "autentication":"wpa",
+         "wifi-pass": "C1sc0123",
+         "channel": "9",
+         "enc-mod":"tkip"
+        }
+    ]
+    }

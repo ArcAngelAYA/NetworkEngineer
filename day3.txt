@@ -38,7 +38,7 @@ config t
 int e1/0
  switchport mode access
  switchport access vlan 10
-p1:
+p1: 
 config t
 int e0/0
  ip add dhcp
@@ -63,6 +63,8 @@ p2:
 config T
 ip route 0.0.0.0  0.0.0.0 10.2.1.2
 do sh ip route static
+
+
 
 D1:
 config t
@@ -183,10 +185,10 @@ router bgp 1
  neighbor 208.8.8.4 remote-as 45
  neighbor 207.7.7.2 remote-as 2
  neighbor 209.9.9.3 remote-as 3
- network 10.0.0.0 Mask 255.255.255.252
- network 207.7.7.0
- network 208.8.8.0
- network 209.9.9.0
+ network 10.0.0.0 mask 255.255.255.252
+ network 207.7.7.0 mask 255.255.255.252
+ network 208.8.8.0 mask 255.255.255.252
+ network 209.9.9.0 mask 255.255.255.252
 end
 @@@ISP1:
 CONFIG T

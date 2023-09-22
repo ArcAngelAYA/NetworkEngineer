@@ -1,0 +1,475 @@
+Task2: Cisco network security fundamentals 
+what is 100% job interview questions
+how to master OSI layers
+ 
+how to hack classmate
+cmd
+nmap -v 10.k.1.10
+
+net use \\10.k.1.10 \:ipc$
+net use \\10.k.1.10 \ipc$ /user:administrator
+
+net use  t: \\10.22.1.10\c$
+t:
+t: dir /ah (Reboot)
+
+
+
+3 ways handshake
+1. SYN
+2. ACK
+3. ESTABLISHED
+
+cmd (to check virus) (SYN most dangerous)
+netstat -s -p tcp
+
+
+IP neu
+nmap -sP 10.11.189.0/24
+
+bulacan state
+nmap -sP 110.34.166.0/24
+110.34.166.0
+
+nmap -v 110.34.166.___
+
+TASK 4 How to preotect your network
+
+
+ex1. block 3 classmates
+edge:
+config t
+no access-list 1
+access-list 1 deny 10.22.0.0 255.255.0.0
+access-list 1 deny 10.32.0.0 255.255.0.0
+access-list 1 deny 10.42.0.0 255.255.0.0
+access-list 1 perm any
+Int gi 0/0/1
+IP access-group 1 in
+
+ex2: unlock
+config t
+Int gi 0/0/1
+NO IP access-group 1 in
+do sh ip access-list 1
+
+config t
+no access-list 2
+access-list 2 deny 10.11.0.0 255.255.0.0
+access-list 2 deny 10.12.0.0 255.255.0.0
+access-list 2 deny 10.22.0.0 255.255.0.0
+access-list 2 perm any
+Int gi 0/0/1
+IP access-group 2 in
+do sh ip access-list 2
+
+config t
+Int gi 0/0/1
+NO IP access-group 2 in
+do sh ip access-list 2
+
+
+config t
+no access-list 3
+access-list 3 deny 10.11.0.0 255.255.0.0
+access-list 3 deny 10.12.0.0 255.255.0.0
+access-list 3 deny 10.32.0.0 255.255.0.0
+access-list 3 deny 10.42.0.0 255.255.0.0
+access-list 3 perm any
+Int gi 0/0/1
+IP access-group 3 in
+do sh ip access-list 3
+
+config t
+Int gi 0/0/1
+NO IP access-group 3 in
+do sh ip access-list 3
+
+
+option 3
+
+config t
+no access-list 4
+access-list 4 Permit 10.22.0.0 0.0.255.255
+access-list 4 perm any
+Int gi 0/0/1
+IP access-group 4 in
+do sh ip access-list 4
+
+config t
+Int gi 0/0/1
+NO IP access-group 4 in
+do sh ip access-list 4
+
+config t
+no access-list 5
+access-list 5 Permit 10.32.0.0 0.0.255.255
+access-list 5 perm any
+Int gi 0/0/1
+IP access-group 5 in
+do sh ip access-list 5
+
+config t
+Int gi 0/0/1
+NO IP access-group 5 in
+do sh ip access-list 5
+
+
+
+how to secure your client (80)
+nmap -v www.bulsu.edu.ph
+nmap -v www.feu.edu.ph
+nmap -v www.dlsu.edu.ph
+
+
+
+config t
+int fa 0/0
+ip add 10.21.100.9 255.255.255.0 Secondary
+service finger
+service tcp-small-servers
+service udp-small-servers
+ip dns server
+ip http server
+ip http secure-server
+!Make Ping EASY
+ip host pc 10.21.1.10
+ip host cm 10.21.100.8
+ip host cm2 10.21.100.9
+ip host p1 10.21.100.101
+ip host p2 10.21.100.102
+ip host sw 10.21.1.4
+ip host ed 10.21.21.1
+
+
+@cucm:
+config t
+no access-list 100 
+access-list 100 Permit tcp any host cm eq 80
+access-list 100 Permit tcp any host cm eq 443
+access-list 100 Permit tcp any host cm2 eq 22
+access-list 100 Permit tcp any host cm2 eq 53
+Int fa 0/0
+ip access-group 100 In
+do sh ip access-list 100
+
+config t
+access-list 100 
+access-list 100 Permit tcp any host cm eq 80
+access-list 100 Permit tcp any host cm eq 443
+access-list 100 Permit tcp any host cm2 eq 22
+access-list 100 Permit tcp any host cm2 eq 53
+Int fa 0/0
+no ip access-group 100 In
+do sh ip access-list 100
+
+
+
+
+config t
+no access-list 101 
+access-list 101 Permit tcp any host cm eq 22
+access-list 101 Permit tcp any host cm eq 23
+access-list 101 Permit tcp any host cm eq 53
+access-list 101 Permit tcp any host cm2 eq 80
+access-list 101 Permit tcp any host cm2 eq 443
+Int fa 0/0
+ip access-group 101 In
+do sh ip access-list 101
+
+config t
+access-list 100
+access-list 101 Permit tcp any host cm eq 22
+access-list 101 Permit tcp any host cm eq 23
+access-list 101 Permit tcp any host cm eq 53
+access-list 101 Permit tcp any host cm2 eq 80
+access-list 101 Permit tcp any host cm2 eq 443
+config t
+Int fa 0/0
+no ip access-group 101 In
+do sh ip access-list 101
+
+
+
+
+
+
+nmap -Pnv cm
+nmap -Pnv cm2
+
+
+Ex 2
+config t
+access-list 102
+access-list 102 Permit tcp any host cm eq 22
+access-list 102 Permit tcp any host cm eq 23
+access-list 102 Permit tcp any host cm eq 53
+access-list 102 Permit tcp any host cm2 eq 80
+access-list 102 Permit tcp any host cm2 eq 443
+Int fa 0/0
+ip access-group 102 In
+do sh ip access-list 102
+
+
+config t
+access-list 102
+access-list 102 Permit tcp any host cm eq 22
+access-list 102 Permit tcp any host cm eq 23
+access-list 102 Permit tcp any host cm eq 53
+access-list 102 Permit tcp any host cm2 eq 80
+access-list 102 Permit tcp any host cm2 eq 443
+config t
+Int fa 0/0
+no ip access-group 102 In
+do sh ip access-list 102
+
+Ex3.
+config t
+no access-list 103 
+access-list 103  Permit tcp any host cm eq 23
+access-list 103  Permit tcp any host cm eq 80
+access-list 103  Permit tcp any host cm eq 53
+access-list 103  Permit tcp any host cm2 eq 22
+access-list 103  Permit tcp any host cm2 eq 443
+access-list 103  Permit tcp any host cm2 eq 23
+access-list 103  Permit tcp any host cm2 eq 2000
+Int fa 0/0
+ip access-group 103  In
+do sh ip access-list 103 
+
+config t
+Int fa 0/0
+no ip access-group 103  In
+do sh ip access-list 103 
+
+Ex4
+config t
+no access-list 104 
+access-list 104  Permit icmp any host cm 23
+access-list 104  Permit icmp any host cm 80
+access-list 104  Permit icmp any host cm 53
+access-list 104  Permit icmp any host cm 22
+access-list 104  Permit icmp any host cm 443
+access-list 104  Permit icmp any host cm 23
+access-list 104  Permit icmp any host cm 2000
+Int fa 0/0
+ip access-group 104  In
+do sh ip access-list 104 
+
+config t
+Int fa 0/0
+no ip access-group 104  In
+do sh ip access-list 104
+
+Ex5
+config t
+no access-list 105
+access-list 105  Permit tcp any host cm eq 53
+access-list 105  Permit tcp any host cm eq 22
+access-list 105  Permit icmp any host cm 
+access-list 105  Permit icmp any host cm2
+access-list 105  Permit tcp any host cm2 eq 23
+access-list 105  Permit tcp any host cm2 eq 12
+access-list 105 Permit tcp any host cm2 eq 19
+access-list 105  Permit icmp any host cm2 
+
+config t
+Int fa 0/0
+no ip access-group 105  In
+do sh ip access-list 105 
+
+
+EX6
+config t
+int fa 0/0
+ip add 10.21.100.9 255.255.255.0 Secondary
+service finger
+service tcp-small-servers
+service udp-small-servers
+ip dns server
+ip http server
+ip http secure-server
+!Make Ping EASY
+ip host pc 10.21.1.10
+ip host cm 10.21.100.8
+ip host cm2 10.21.100.9
+ip host p1 10.21.100.102
+ip host p2 10.21.100.103
+ip host c1 10.21.50.6
+ip host c2 10.21.50.8
+ip host sw 10.21.1.4
+ip host ed 10.21.21.1
+
+-p1 can sccp cm
+-p2 can ping,http cm
+-c1 can ping cm
+-c2 can http cm
+config t
+no access-list 106
+access-list 106  Permit tcp host  p1 host cm eq 2000
+access-list 106  Permit icmp host p2 host cm 
+access-list 106  Permit tcp host  p2 host cm eq 80
+access-list 106  Permit icmp host c1 host cm 
+access-list 106  Permit tcp host  c2 host cm eq 80
+Int fa 0/0
+ip access-group 106  In
+do sh ip access-list 106 
+
+config t
+Int fa 0/0
+NO ip access-group 106  In
+do sh ip access-list 106 
+
+
+
+Ex7
+-p1 can ping,http cm
+-p2 can sccp cm
+-c1 can http cm
+-c2 can ping cm
+config t
+no access-list 107
+access-list 107  Permit icmp host  p1 host cm 
+access-list 107  Permit tcp host  p1 host cm eq 80
+access-list 107  Permit tcp host  p2 host cm eq 2000
+access-list 107  Permit tcp host  c1 host cm eq 80
+access-list 107  Permit icmp host  c2 host cm 
+Int fa 0/0
+ip access-group 107  In
+do sh ip access-list 107
+config t
+Int fa 0/0
+NO ip access-group 107  In
+do sh ip access-list 107 
+
+
+Ex8
+-p1 can ping,http
+-p2 can ping,http cm
+-c1 can ping,http cm
+-c2 can ping cm
+config t
+no access-list 108
+access-list 108  Permit icmp host  p1 host cm 
+access-list 108  Permit tcp host  p1 host cm eq 80
+access-list 108  Permit icmp host  p2 host cm 
+access-list 108  Permit tcp host  p2 host cm eq 80
+access-list 108  Permit icmp host  c1 host cm 
+access-list 108  Permit tcp host  c1 host cm eq 80
+access-list 108  Permit icmp host  c2 host cm  
+Int fa 0/0
+ip access-group 108  In
+do sh ip access-list 108
+config t
+Int fa 0/0
+NO ip access-group 108  In
+do sh ip access-list 108
+
+
+Task8: how to practice security cybersec at home
+1.ACL 2.ssh 3NAT 4. NTP 5 dhcp
+1.Install VMware17
+
+
+
+
+
+exam lab 1:condifure basic IPaddress and dhcp server
+VPNJP 
+config t
+no logging console
+no ip domain-lookup
+int gi 1
+ip add 192.168.108.5 255.255.255.0
+no shut
+int gi 2
+ip add 172.16.100.5 255.255.255.0
+no shut
+int gi 3
+ip add 10.103.1.5 255.255.255.0
+no shut
+
+wxam lab 1: Dual DHCPServer
+@csr1000v
+config t
+ip dhcp excluded-add 10.103.1.1 10.103.1.50
+ip dhcp excluded-add 172.16.100.1 172.16.100.80
+ip dhcp pool vm2
+network 172.16.100.0 255.255.255.0
+default-router 172.16.100.5
+domain-name vm2.com
+dns-server 1.1.1.1
+ip dhcp pool vm3
+network 10.103.1.0 255.255.255.0
+default-router 10.103.1.5
+domain-name vm3.com
+dns-server 1.1.1.1
+
+
+Ex2: SSH Configuration
+telnet is dangerous/hackable
+config t
+ip domain-name rivanit.com
+username admin2 privilege 15 secret password
+crypto key generate rsa
+512 -> 1024
+ip ssh version 2
+
+
+
+Lab 3 Network time Protocol: NTP
+protocol the syncs time with a know NTP server
+sync with youre headoofice: time.google.com
+@vpnPH:
+config t
+ip domain-lookup
+ip name-server 8.8.8.8
+ntp server time.google.com
+do sh ntp association
+
+LAB 4
+mark 10.3.3.116    (Private)
+arc                 .123
+ed                  .155
+dan                .114
+yna                .168
+kim                .103
+
+Give Internet
+config t
+ip route 0.0.0.0 0.0.0.0 192.168.108.2
+ip domain-lookup
+ip name-server 8.8.8.8
+
+
+How to configure network address translation
+static mapping:
+inside local        outside local
+10.103.1.52 --> 192.168.108.88
+172.16.100.9 --> 192.168.108.69
+!
+10.103.1.51   --> default?
+172.16.100.10  --> default?
+
+
+@mustEdit
+config t
+access-list 8 permit 172.16.100.0 0.0.0.255
+access-list 8 permit 10.103.1.0 0.0.0.225
+Int Gi 2
+ ip nat Inside
+Int Gi 3
+ ip nat Inside
+Int Gi 1
+ip nat Outside
+IP Nat inside source static  10.103.1.52 192.168.108.88
+IP Nat inside source static 172.16.100.9 192.168.108.69
+IP nat inside source list 8 int gi 1 Overload
+end
+show ip nat translation
+
+
+
+
+
+cisco programming
